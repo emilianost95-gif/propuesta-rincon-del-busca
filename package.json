@@ -1,0 +1,32 @@
+{
+  "name": "rincon-del-busca-propuesta",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Propuesta comercial digital — Sistema Integral de Gestión para El Rincón del Busca.",
+  "type": "module",
+  "engines": { "node": ">=20.19" },
+  "scripts": {
+    "dev": "vite --port 5210 --strictPort",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 5211 --strictPort",
+    "typecheck": "tsc -b --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "lucide-react": "1.59.0",
+    "motion": "12.23.24",
+    "react": "19.1.10",
+    "react-dom": "19.1.10"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "22.15.30",
+    "@types/react": "19.1.17",
+    "@types/react-dom": "19.1.11",
+    "@vitejs/plugin-react": "5.2.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

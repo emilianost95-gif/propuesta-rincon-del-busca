@@ -1,0 +1,303 @@
+@import 'tailwindcss';
+
+/*
+ * Tokens. Todas las superficies y textos salen de estas variables:
+ * en impresión se redefinen (ver @media print) y toda la propuesta
+ * pasa a fondo blanco / texto negro sin duplicar componentes.
+ */
+@theme {
+  --color-bg: #07090c;
+  --color-bg-2: #0a0d12;
+  --color-surface: #0f1319;
+  --color-surface-2: #151a22;
+  --color-surface-3: #1b212b;
+  --color-line: #1e252f;
+  --color-line-2: #2a323e;
+  --color-ink: #eef2f6;
+  --color-mute: #a3adbb;
+  --color-dim: #6f7a8b;
+  --color-accent: #b5f25b;
+  --color-accent-2: #8fd13a;
+  --color-accent-ink: #0c1402;
+  --color-ok: #3fd49b;
+  --color-warn: #f2b84b;
+  --color-crit: #f37b74;
+  --color-info: #6aa8ff;
+
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  button {
+    cursor: pointer;
+  }
+  input[type='range'] {
+    accent-color: var(--color-accent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .shell {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 1.25rem;
+  }
+  .glass {
+    background: color-mix(in oklab, var(--color-surface) 72%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-ink) 9%, transparent);
+    backdrop-filter: blur(16px) saturate(1.15);
+    -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  }
+  /* Ventana de "app" de las maquetas conceptuales */
+  .screen {
+    background: linear-gradient(180deg, var(--color-surface-2), var(--color-surface));
+    border: 1px solid var(--color-line-2);
+    border-radius: 1rem;
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.4),
+      0 30px 80px -30px rgb(0 0 0 / 0.75),
+      inset 0 1px 0 rgb(255 255 255 / 0.04);
+  }
+  .hairline {
+    background: linear-gradient(90deg, transparent, var(--color-line-2), transparent);
+    height: 1px;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgb(163 173 187 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(163 173 187 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+  }
+  .glow-accent {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--color-accent) 16%, transparent),
+      transparent
+    );
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--color-accent) 35%, transparent) 0 2px,
+      transparent 2px 7px
+    );
+  }
+  .scroll-x {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-2) transparent;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .print-only {
+    display: none;
+  }
+}
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.flow-dash {
+  stroke-dasharray: 4 8;
+  animation: flow-dash 1.4s linear infinite;
+}
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes row-in {
+  from {
+    opacity: 0;
+  }
+}
+.row-in {
+  animation: row-in 0.25s ease-out;
+}
+.pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/*  IMPRESIÓN / GUARDAR COMO PDF                                       */
+/* ------------------------------------------------------------------ */
+@page {
+  size: A4;
+  margin: 14mm 13mm 16mm;
+}
+
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-bg-2: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-2: #f5f6f8;
+    --color-surface-3: #eceef1;
+    --color-line: #d5d9df;
+    --color-line-2: #c3c8d0;
+    --color-ink: #0a0c10;
+    --color-mute: #2f3743;
+    --color-dim: #4e5866;
+    --color-accent: #3d6b0f;
+    --color-accent-2: #3d6b0f;
+    --color-accent-ink: #ffffff;
+    --color-ok: #146c43;
+    --color-warn: #8a5a00;
+    --color-crit: #b3261e;
+    --color-info: #1d4f9c;
+  }
+  html {
+    color-scheme: light;
+    scroll-behavior: auto;
+    font-size: 11.5px;
+  }
+  body {
+    background: #fff !important;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  /* Todo visible, sin animaciones ni desplazamientos */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-anim] {
+    opacity: 1 !important;
+    clip-path: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .glass,
+  .screen,
+  .panel {
+    background: #fff !important;
+    border-color: var(--color-line) !important;
+  }
+  .grid-bg,
+  .glow-accent,
+  .decor {
+    display: none !important;
+  }
+  section {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+  }
+  .print-break {
+    break-before: page;
+  }
+  .avoid-break,
+  .panel,
+  .screen,
+  table,
+  tr,
+  li,
+  figure {
+    break-inside: avoid;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  .scroll-x {
+    overflow: visible !important;
+  }
+  .min-h-screen,
+  .min-h-svh {
+    min-height: 0 !important;
+  }
+}
