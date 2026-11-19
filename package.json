@@ -4,12 +4,15 @@
   "version": "1.0.0",
   "description": "Propuesta comercial digital — Sistema Integral de Gestión para El Rincón del Busca.",
   "type": "module",
-  "engines": { "node": ">=20.19" },
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "dev": "vite --port 5210 --strictPort",
     "build": "tsc -b && vite build",
     "preview": "vite preview --port 5211 --strictPort",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "publish:pages": "npm run build && node scripts/publish-pages.mjs"
   },
   "dependencies": {
     "@fontsource-variable/geist": "5.3.0",
